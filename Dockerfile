@@ -4,8 +4,6 @@ LABEL maintainer="doraTeX <taylorkgb [at] gmail.com>"
 
 ENV TL_VERSION      2019
 ENV TL_PATH         /usr/local/texlive
-ENV FONT_PATH       ${TL_PATH}/texmf-local/fonts
-ENV TEXMF_DIST_PATH ${TL_PATH}/texmf-dist
 ENV PATH            ${TL_PATH}/bin/x86_64-linux:/bin:${PATH}
 
 WORKDIR /tmp
@@ -47,23 +45,11 @@ RUN \
       kanji-config-updmap-sys --jis2004 haranoaji && \
     # Re-index LuaTeX font database
       luaotfload-tool -u -f && \
-    # Enable XeTeX to find fonts in TEXMFDIST and TEXMFLOCAL using fontconfig
-      printf "%s\n" \
-        "<?xml version=\"1.0\"?>" \
-        "<!DOCTYPE fontconfig SYSTEM \"fonts.dtd\">" \
-        "<fontconfig>" \
-          "<dir>${TEXMF_DIST_PATH}/fonts/opentype</dir>" \
-          "<dir>${TEXMF_DIST_PATH}/fonts/truetype</dir>" \
-          "<dir>${FONT_PATH}/opentype</dir>" \
-          "<dir>${FONT_PATH}/truetype</dir>" \
-        "</fontconfig>" \
-        > /etc/fonts/local.conf && \
-      fc-cache -r && \
     # Install llmk
       wget -q -O /usr/local/bin/llmk https://raw.githubusercontent.com/wtsnjp/llmk/master/llmk.lua && \
       chmod +x /usr/local/bin/llmk
 
-VOLUME ["/usr/local/texlive/${TL_VERSION}/texmf-var/luatex-cache/generic/fonts/otl"]
+VOLUME ["/usr/local/texlive/${TL_VERSION}/texmf-var/luatex-cache"]
 
 WORKDIR /workdir
 

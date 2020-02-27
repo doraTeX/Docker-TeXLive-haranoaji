@@ -59,7 +59,7 @@ RUN \
       cp -p ./cjk-gs-support/database/cjkgs-haranoaji.dat "${TEXMF_DIST_PATH}/fonts/misc/cjk-gs-integrate/" && \
       rm -rf ./cjk-gs-support && \
     # Update zxjafont
-      wget -q -O "${TEXMF_DIST_PATH}/tex/latex/zxjafont/zxjafont.sty" https://raw.githubusercontent.com/doraTeX/ZXjafont/master/zxjafont.sty && \
+      wget -q -O "${TEXMF_DIST_PATH}/tex/latex/zxjafont/zxjafont.sty" https://raw.githubusercontent.com/zr-tex8r/ZXjafont/master/zxjafont.sty && \
     # Apply new font settings
       mktexlsr && \
       cjk-gs-integrate --cleanup --force && \

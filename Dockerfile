@@ -15,15 +15,14 @@ RUN apt update && \
     apt upgrade -y && \
     apt install -y \
     # Basic tools
-    wget unzip git ghostscript \
+    wget unzip ghostscript \
     # for tlmgr
     perl-modules-5.28 \
     # for XeTeX
     fontconfig && \
     # Clean caches
-    apt clean && \
-    apt autoclean && \
     apt autoremove -y && \
+    apt clean && \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # Install TeX Live
@@ -42,19 +41,7 @@ RUN mkdir install-tl-unx && \
 
 # Set up fonts and llmk
 RUN \
-    # Install HaranoAji fonts
-      git clone https://github.com/trueroad/HaranoAjiFonts.git && \
-      mkdir -p "${FONT_PATH}/opentype/haranoaji" && \
-      cp -p ./HaranoAjiFonts/*.otf "${FONT_PATH}/opentype/haranoaji/" && \
-      rm -rf ./HaranoAjiFonts && \
-    # Update ptex-fontmaps
-      git clone https://github.com/texjporg/jfontmaps.git && \
-      cp -p ./jfontmaps/database/ptex-fontmaps-data.dat "${TEXMF_DIST_PATH}/fonts/misc/ptex-fontmaps/" && \
-      cp -pr ./jfontmaps/maps/haranoaji "${TEXMF_DIST_PATH}/fonts/map/dvipdfmx/ptex-fontmaps/" && \
-      cp -p ./jfontmaps/script/*.pl "${TEXMF_DIST_PATH}/scripts/ptex-fontmaps/" && \
-      rm -rf ./jfontmaps && \
-    # Apply new font settings
-      mktexlsr && \
+    # Run cjk-gs-integrate
       cjk-gs-integrate --cleanup --force && \
       cjk-gs-integrate --force && \
       kanji-config-updmap-sys --jis2004 haranoaji && \

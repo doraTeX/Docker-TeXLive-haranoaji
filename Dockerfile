@@ -53,13 +53,6 @@ RUN \
       cp -pr ./jfontmaps/maps/haranoaji "${TEXMF_DIST_PATH}/fonts/map/dvipdfmx/ptex-fontmaps/" && \
       cp -p ./jfontmaps/script/*.pl "${TEXMF_DIST_PATH}/scripts/ptex-fontmaps/" && \
       rm -rf ./jfontmaps && \
-    # Update cjk-gs-integrate
-      git clone https://github.com/texjporg/cjk-gs-support.git && \
-      cp -p ./cjk-gs-support/cjk-gs-integrate.pl "${TEXMF_DIST_PATH}/scripts/cjk-gs-integrate/" && \
-      cp -p ./cjk-gs-support/database/cjkgs-haranoaji.dat "${TEXMF_DIST_PATH}/fonts/misc/cjk-gs-integrate/" && \
-      rm -rf ./cjk-gs-support && \
-    # Update zxjafont
-      wget -q -O "${TEXMF_DIST_PATH}/tex/latex/zxjafont/zxjafont.sty" https://raw.githubusercontent.com/zr-tex8r/ZXjafont/master/zxjafont.sty && \
     # Apply new font settings
       mktexlsr && \
       cjk-gs-integrate --cleanup --force && \

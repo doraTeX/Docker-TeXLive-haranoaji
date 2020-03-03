@@ -42,6 +42,8 @@ RUN \
     # Run cjk-gs-integrate
       cjk-gs-integrate --cleanup --force && \
       cjk-gs-integrate --force && \
+    # Copy CMap: 2004-{H,V}
+      cp ${TL_PATH}/texmf-dist/fonts/cmap/ptex-fontmaps/2004-* /var/lib/ghostscript/CMap/ && \
       kanji-config-updmap-sys --jis2004 haranoaji && \
     # Re-index LuaTeX font database
       luaotfload-tool -u -f && \

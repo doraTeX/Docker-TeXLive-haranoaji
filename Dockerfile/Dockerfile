@@ -2,7 +2,7 @@ FROM ubuntu:19.10
 
 LABEL maintainer="doraTeX <taylorkgb [at] gmail.com>"
 
-ENV TL_VERSION      2019
+ENV TL_VERSION      2020
 ENV TL_PATH         /usr/local/texlive
 ENV PATH            ${TL_PATH}/bin/x86_64-linux:/bin:${PATH}
 
@@ -25,7 +25,7 @@ RUN apt update && \
 
 # Install TeX Live
 RUN mkdir install-tl-unx && \
-    wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | \
+    wget -qO- https://texlive.texjp.org/pretest/tlnet/install-tl-unx.tar.gz | \
       tar -xz -C ./install-tl-unx --strip-components=1 && \
     printf "%s\n" \
       "TEXDIR ${TL_PATH}" \
@@ -34,7 +34,8 @@ RUN mkdir install-tl-unx && \
       "option_src 0" \
       > ./install-tl-unx/texlive.profile && \
     ./install-tl-unx/install-tl \
-      -profile ./install-tl-unx/texlive.profile && \
+      -profile ./install-tl-unx/texlive.profile \
+      -repository https://texlive.texjp.org/pretest/tlnet/ && \
     rm -rf *
 
 # Set up fonts and llmk

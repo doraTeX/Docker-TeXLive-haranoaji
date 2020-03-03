@@ -37,7 +37,8 @@ RUN mkdir install-tl-unx && \
       "option_src 0" \
       > ./install-tl-unx/texlive.profile && \
     ./install-tl-unx/install-tl \
-      -profile ./install-tl-unx/texlive.profile && \
+      -profile ./install-tl-unx/texlive.profile \
+      -repository https://texlive.texjp.org/2019/tlnet-20200201/ && \
     rm -rf *
 
 # Set up fonts and llmk

@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 
 LABEL maintainer="doraTeX <taylorkgb [at] gmail.com>"
 
@@ -15,7 +15,7 @@ RUN apt update && \
     # Basic tools
     wget unzip ghostscript \
     # for tlmgr
-    perl-modules-5.28 \
+    perl-modules-5.30 \
     # for XeTeX
     fontconfig && \
     # Clean caches

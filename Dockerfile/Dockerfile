@@ -25,7 +25,7 @@ RUN apt update && \
 
 # Install TeX Live
 RUN mkdir install-tl-unx && \
-    wget -qO- http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | \
+    wget -qO- https://texlive.texjp.org/${TL_VERSION}/tlnet/install-tl-unx.tar.gz | \
       tar -xz -C ./install-tl-unx --strip-components=1 && \
     printf "%s\n" \
       "TEXDIR ${TL_PATH}" \
@@ -34,6 +34,7 @@ RUN mkdir install-tl-unx && \
       "option_src 0" \
       > ./install-tl-unx/texlive.profile && \
     ./install-tl-unx/install-tl \
+      -repository https://texlive.texjp.org/${TL_VERSION}/tlnet/ \
       -profile ./install-tl-unx/texlive.profile && \
     rm -rf *
 
